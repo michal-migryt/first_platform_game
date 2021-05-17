@@ -7,7 +7,7 @@ public class LevelController : MonoBehaviour
     public GameObject Player;
     public Camera MainCamera;
     public Transform RespawnPoint;
-    public Transform MainCameraFirstPoint;
+    public Transform MainCameraRespawnPoint;
     private PlayerStats _playerStats;
 
     // Start is called before the first frame update
@@ -30,6 +30,6 @@ public class LevelController : MonoBehaviour
     {
         _playerStats.Death();
         Player.transform.position = RespawnPoint.position;
-        MainCamera.transform.position = MainCameraFirstPoint.transform.position;
+        MainCamera.transform.position = MainCameraRespawnPoint.transform.position;
     }
 }

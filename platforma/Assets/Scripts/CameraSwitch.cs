@@ -36,6 +36,10 @@ public class CameraSwitch : MonoBehaviour
         //Debug.Log(IsCameraMoving());
         
     }
+    public Transform GetCameraTarget()
+    {
+        return CameraTarget;
+    }
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Player")
         {
