@@ -1967,7 +1967,7 @@ MonoBehaviour:
   Player: {fileID: 2009878588}
   MainCamera: {fileID: 519420031}
   RespawnPoint: {fileID: 1852430930}
-  MainCameraFirstPoint: {fileID: 1359042183}
+  MainCameraRespawnPoint: {fileID: 0}
 --- !u!4 &284991079
 Transform:
   m_ObjectHideFlags: 0
@@ -4335,7 +4335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.430002, y: 5.01, z: -10}
+  m_LocalPosition: {x: 72.29, y: 5.01, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6343,6 +6343,7 @@ GameObject:
   - component: {fileID: 908031930}
   - component: {fileID: 908031929}
   - component: {fileID: 908031928}
+  - component: {fileID: 908031931}
   m_Layer: 0
   m_Name: TriggerCameraChange (1)
   m_TagString: CameraChange
@@ -6405,6 +6406,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 46
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &908031931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908031927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 586a9364df581e94ab2c9dd1b6fc6be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelController: {fileID: 284991078}
 --- !u!1 &944935944
 GameObject:
   m_ObjectHideFlags: 0
@@ -6458,7 +6472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &947981518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6547,7 +6561,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -12.75, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
 --- !u!1001 &952993363
@@ -12532,6 +12546,7 @@ GameObject:
   - component: {fileID: 1816903347}
   - component: {fileID: 1816903346}
   - component: {fileID: 1816903349}
+  - component: {fileID: 1816903350}
   m_Layer: 0
   m_Name: TriggerCameraChange (3)
   m_TagString: CameraChange
@@ -12608,6 +12623,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemy: {fileID: 1185078373}
   timeToActivate: 0.1
+--- !u!114 &1816903350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1816903345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 586a9364df581e94ab2c9dd1b6fc6be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelController: {fileID: 284991078}
 --- !u!1 &1820417996
 GameObject:
   m_ObjectHideFlags: 0
@@ -15131,7 +15159,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2009878588}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.7, y: 3.74, z: 0}
+  m_LocalPosition: {x: 65.89, y: 1.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
