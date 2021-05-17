@@ -19,7 +19,7 @@ public class LevelController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(_playerStats.GetRespawnNeed() == true || _playerStats.GetCurrentHalfHearts() <= 0)
+        if(_playerStats.GetRespawnNeed() || _playerStats.GetCurrentHalfHearts() <= 0)
         {
             Respawn();
             _playerStats.Respawned();
