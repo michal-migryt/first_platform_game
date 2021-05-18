@@ -106,6 +106,7 @@ public class CameraSwitch : MonoBehaviour
     }
     private bool isFacingTargetCamera(Collider2D other)
     {
+        
         if(where == WhereIsTargetCamera.RIGHT && other.gameObject.transform.localScale.x > 0)
         {
             return true;
@@ -114,10 +115,14 @@ public class CameraSwitch : MonoBehaviour
         {
             return true;
         }
-        else 
+        else
         return false;
-
     }
+    /*private bool isMovingToTargetCamera(Collider2D other)
+    {
+        if(where == WhereIsTargetCamera.RIGHT && other.attachedRigidbody.velocity.x)
+    }
+    */
     public bool IsCameraMoving()
     {
         if(CameraMovDir == CameraMovementDirection.TARGET && Mathf.Abs(CameraTransform.position.x - CameraTarget.position.x) <= 0.1f)
