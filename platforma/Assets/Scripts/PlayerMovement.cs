@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private float hurtTime = 0f;
     private bool cameraMoves;
     private bool stoppedMoving = true;
-    private float waitTime = 0.25f; // For isCameraMoving
+    
 
     // Raycast variables
     [SerializeField]
@@ -57,7 +57,9 @@ public class PlayerMovement : MonoBehaviour
         calculateRayCastOrigin();
         CheckInput();
         AnimatorSetter();
-        Debug.Log(PlayerVelocitySave);     
+        
+        Debug.Log(PlayerVelocitySave);
+        Debug.Log(_rigidbody2d.IsAwake());     
     }
     private void FixedUpdate() {
         FreezeOnCameraChange();
@@ -73,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         {
             direction = Input.GetAxis("Horizontal");
             _animator.SetFloat("Speed", Mathf.Abs(direction));
-            if((direction > 0 && transform.localScale.x < 0) || (direction<0 && transform.localScale.x > 0))
+            if((direction > 0 && !isFacingRight()) || (direction<0 && isFacingRight()))
                 Flip();
             if(canMoveHorizontal())
                 transform.position += new Vector3(direction, 0, 0) *Time.deltaTime * movementSpeed;
@@ -97,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(rayCastOrigin + new Vector2(distanceBetweenVerticalRays*i,colliderThickness)*(-transform.localScale), Vector2.down*rayLength, Color.green);
         if(hit)
         {
-            _rigidbody2d.velocity = new Vector2(_rigidbody2d.velocity.x, 0);
+            _rigidbody2d.velocity = Vector2.zero;
             return true;
         }
         }
@@ -148,10 +150,11 @@ public class PlayerMovement : MonoBehaviour
         
         if(_cameraswitch != null && _cameraswitch.IsCameraMoving() && stoppedMoving == false)
         {
+            
             transform.position = PlayerPositionSave;
             _rigidbody2d.velocity = Vector2.zero;
         }
-        if(stoppedMoving == false &&!_cameraswitch.IsCameraMoving())
+        if(_cameraswitch != null && stoppedMoving == false && !_cameraswitch.IsCameraMoving())
         {
             stoppedMoving = true;
             _rigidbody2d.velocity = PlayerVelocitySave; // giving back Player his speed he had when he jumped into CameraChangeTrigger collider
@@ -194,8 +197,10 @@ public class PlayerMovement : MonoBehaviour
             _cameraswitch = other.gameObject.GetComponent<CameraSwitch>();
             PlayerPositionSave = transform.position;
             PlayerVelocitySave = _rigidbody2d.velocity;
+            
+            _rigidbody2d.velocity = Vector2.zero;
             stoppedMoving = false;
-            waitTime = 0.25f;
+            _rigidbody2d.Sleep();
         }
     }
     private void OnTriggerStay2D(Collider2D other) {
@@ -205,7 +210,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D other) {
         if(other.gameObject.tag == "CameraChange")
-        _cameraswitch = null;
+        {
+            _cameraswitch = null;
+        }
     }
     private void AnimatorSetter()
     {

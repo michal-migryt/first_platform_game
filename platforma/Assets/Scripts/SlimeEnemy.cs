@@ -19,7 +19,7 @@ public class SlimeEnemy : MonoBehaviour
         ForceDirection = -1;
         else
         ForceDirection = 1;
-    other.rigidbody.velocity = Vector2.zero;
+    
     other.rigidbody.AddForce(new Vector2(4*ForceDirection,4), ForceMode2D.Impulse);    
     }
     }

@@ -22,6 +22,8 @@ public class CameraSwitch : MonoBehaviour
         TargetCameraDirection();
     }
     private void Update() {
+        if(!IsCameraMoving())
+            TriggerCameraChange = false;
         if(TriggerCameraChange && CameraMovDir == CameraMovementDirection.TARGET)
         {
             CameraTransform.position = Vector3.MoveTowards(CameraTransform.position, CameraTarget.position, 0.025f);
@@ -31,8 +33,6 @@ public class CameraSwitch : MonoBehaviour
         {    
             CameraTransform.position = Vector3.MoveTowards(CameraTransform.position, CameraOrigin.position, 0.025f);
         }
-        if(!IsCameraMoving())
-            TriggerCameraChange = false;
         //Debug.Log(IsCameraMoving());
         
     }
@@ -43,13 +43,12 @@ public class CameraSwitch : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Player")
         {
-            if(isFacingTargetCamera(other) && CameraTransform.position.x != CameraTarget.position.x)
+            if((other.attachedRigidbody.velocity.x == 0 && isFacingTargetCamera(other)) || isForcedToTarget(other))
             {
                 TriggerCameraChange = true;
                 CameraMovDir = CameraMovementDirection.TARGET;
             }
-
-            if(!isFacingTargetCamera(other) && CameraTransform.position.x != CameraOrigin.position.x)
+            else if((other.attachedRigidbody.velocity.x == 0 && !isFacingTargetCamera(other)) || isForcedToOrigin(other))
             {
                 TriggerCameraChange = true;
                 CameraMovDir = CameraMovementDirection.ORIGIN;
@@ -59,13 +58,13 @@ public class CameraSwitch : MonoBehaviour
     private void OnTriggerStay2D(Collider2D other) {
         if(other.gameObject.tag == "Player")
         {
-            if(isFacingTargetCamera(other) && CameraTransform.position.x != CameraTarget.position.x)
+            if(isFacingTargetCamera(other) || isForcedToTarget(other))
             {
                 TriggerCameraChange = true;
                 CameraMovDir = CameraMovementDirection.TARGET;
             }
-            
-            if(!isFacingTargetCamera(other) && CameraTransform.position.x != CameraOrigin.position.x)
+
+            else if(!isFacingTargetCamera(other) || isForcedToOrigin(other))
             {
                 TriggerCameraChange = true;
                 CameraMovDir = CameraMovementDirection.ORIGIN;
@@ -91,8 +90,9 @@ public class CameraSwitch : MonoBehaviour
         
                 if(TriggerCameraChange && CameraMovDir == CameraMovementDirection.ORIGIN)  
                     CameraTransform.position = Vector3.MoveTowards(CameraTransform.position, CameraOrigin.position, 0.025f);
-            
+                
             }
+            
         }
     }
    
@@ -118,11 +118,25 @@ public class CameraSwitch : MonoBehaviour
         else
         return false;
     }
-    /*private bool isMovingToTargetCamera(Collider2D other)
+    private bool isForcedToOrigin(Collider2D other)
     {
-        if(where == WhereIsTargetCamera.RIGHT && other.attachedRigidbody.velocity.x)
+        if(where == WhereIsTargetCamera.RIGHT && other.attachedRigidbody.velocity.x < 0)
+            return true;
+        else if(where == WhereIsTargetCamera.LEFT && other.attachedRigidbody.velocity.x > 0)
+            return true;
+        else
+            return false;
     }
-    */
+    private bool isForcedToTarget(Collider2D other)
+    {
+        if(where == WhereIsTargetCamera.RIGHT && other.attachedRigidbody.velocity.x > 0)
+            return true;
+        else if(where == WhereIsTargetCamera.LEFT && other.attachedRigidbody.velocity.x < 0)
+            return true;
+        else
+            return false;
+    }
+    
     public bool IsCameraMoving()
     {
         if(CameraMovDir == CameraMovementDirection.TARGET && Mathf.Abs(CameraTransform.position.x - CameraTarget.position.x) <= 0.1f)
