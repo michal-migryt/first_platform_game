@@ -17,6 +17,7 @@ public class CameraSwitch : MonoBehaviour
     private Transform CameraTarget;
     private float CameraChangeDelay = 1f;
     private bool TriggerCameraChange = false;
+    private Vector2 PlayerVelocity;
     private void Start() {
         CameraMovDir = CameraMovementDirection.TARGET;
         TargetCameraDirection();
@@ -43,32 +44,38 @@ public class CameraSwitch : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.tag == "Player")
         {
-            if((other.attachedRigidbody.velocity.x == 0 && isFacingTargetCamera(other)) || isForcedToTarget(other))
+            PlayerVelocity = other.attachedRigidbody.velocity;
+            if((isFacingTargetCamera(other) && other.attachedRigidbody.velocity.x  == 0) || isForcedToTarget(other))
             {
-                TriggerCameraChange = true;
                 CameraMovDir = CameraMovementDirection.TARGET;
-            }
-            else if((other.attachedRigidbody.velocity.x == 0 && !isFacingTargetCamera(other)) || isForcedToOrigin(other))
-            {
                 TriggerCameraChange = true;
-                CameraMovDir = CameraMovementDirection.ORIGIN;
             }
+            else if((!isFacingTargetCamera(other) && other.attachedRigidbody.velocity.x  == 0) || isForcedToOrigin(other))
+            {
+                CameraMovDir = CameraMovementDirection.ORIGIN;
+                TriggerCameraChange = true;
+            }
+            
+            
         }
     }
     private void OnTriggerStay2D(Collider2D other) {
         if(other.gameObject.tag == "Player")
-        {
-            if(isFacingTargetCamera(other) || isForcedToTarget(other))
+        {   // PLAYER VELOCITY MOZE BYC ZAPISANE W ONTRIGGERENTER2D A ZEROWANE W METODZIE ISCAMERAMOVING NA SAMYM DOLE PRZED OBA RETURN FALSE
+            if((isFacingTargetCamera(other) && PlayerVelocity.x == 0) || isForcedToTarget(other))
             {
                 TriggerCameraChange = true;
                 CameraMovDir = CameraMovementDirection.TARGET;
+                
             }
 
-            else if(!isFacingTargetCamera(other) || isForcedToOrigin(other))
+            else if((!isFacingTargetCamera(other) && PlayerVelocity.x == 0) || isForcedToOrigin(other))
             {
                 TriggerCameraChange = true;
                 CameraMovDir = CameraMovementDirection.ORIGIN;
+                
             }
+           
         }
     }
     private void OnTriggerExit2D(Collider2D other) {
@@ -92,7 +99,7 @@ public class CameraSwitch : MonoBehaviour
                     CameraTransform.position = Vector3.MoveTowards(CameraTransform.position, CameraOrigin.position, 0.025f);
                 
             }
-            
+            PlayerVelocity = Vector2.zero;
         }
     }
    
@@ -122,16 +129,15 @@ public class CameraSwitch : MonoBehaviour
     {
         if(where == WhereIsTargetCamera.RIGHT && other.attachedRigidbody.velocity.x < 0)
             return true;
-        else if(where == WhereIsTargetCamera.LEFT && other.attachedRigidbody.velocity.x > 0)
+        if(where == WhereIsTargetCamera.LEFT && other.attachedRigidbody.velocity.x > 0)
             return true;
-        else
-            return false;
+        return false;
     }
     private bool isForcedToTarget(Collider2D other)
     {
-        if(where == WhereIsTargetCamera.RIGHT && other.attachedRigidbody.velocity.x > 0)
+        if(where == WhereIsTargetCamera.RIGHT && PlayerVelocity.x > 0)
             return true;
-        else if(where == WhereIsTargetCamera.LEFT && other.attachedRigidbody.velocity.x < 0)
+        else if(where == WhereIsTargetCamera.LEFT && PlayerVelocity.x < 0)
             return true;
         else
             return false;
@@ -148,5 +154,9 @@ public class CameraSwitch : MonoBehaviour
     public Transform test()
     {
         return CameraTransform;
-    }   
+    }  
+    public void SetSavedPlayerVelocity(Vector2 velocity)
+    {
+        PlayerVelocity = velocity;
+    }
 }

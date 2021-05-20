@@ -20,7 +20,7 @@ public class SlimeEnemy : MonoBehaviour
         else
         ForceDirection = 1;
     
-    other.rigidbody.AddForce(new Vector2(4*ForceDirection,4), ForceMode2D.Impulse);    
+        other.rigidbody.AddForce(new Vector2(4*ForceDirection,4), ForceMode2D.Impulse);    
     }
     }
     // Start is called before the first frame update

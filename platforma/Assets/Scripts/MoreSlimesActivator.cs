@@ -29,7 +29,7 @@ public class MoreSlimesActivator : MonoBehaviour
             if(Activate == true && _slimeEnemy[i].enabled == false && !_cameraSwitch.IsCameraMoving())
                 _slimeEnemy[i].enabled = true;
             
-            if((Activate == false| _cameraSwitch.IsCameraMoving()) && _slimeEnemy[i].enabled == true)
+            if((Activate == false || _cameraSwitch.IsCameraMoving()) && _slimeEnemy[i].enabled == true)
                 _slimeEnemy[i].enabled = false;
             }
             

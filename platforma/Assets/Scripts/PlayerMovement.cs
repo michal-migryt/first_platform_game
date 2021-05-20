@@ -57,9 +57,6 @@ public class PlayerMovement : MonoBehaviour
         calculateRayCastOrigin();
         CheckInput();
         AnimatorSetter();
-        
-        Debug.Log(PlayerVelocitySave);
-        Debug.Log(_rigidbody2d.IsAwake());     
     }
     private void FixedUpdate() {
         FreezeOnCameraChange();
@@ -150,14 +147,15 @@ public class PlayerMovement : MonoBehaviour
         
         if(_cameraswitch != null && _cameraswitch.IsCameraMoving() && stoppedMoving == false)
         {
-            
             transform.position = PlayerPositionSave;
             _rigidbody2d.velocity = Vector2.zero;
+            Debug.Log("Frozen");
         }
         if(_cameraswitch != null && stoppedMoving == false && !_cameraswitch.IsCameraMoving())
         {
             stoppedMoving = true;
             _rigidbody2d.velocity = PlayerVelocitySave; // giving back Player his speed he had when he jumped into CameraChangeTrigger collider
+            //_cameraswitch.SetSavedPlayerVelocity(Vector2.zero); 
         }
         
     }
@@ -197,10 +195,9 @@ public class PlayerMovement : MonoBehaviour
             _cameraswitch = other.gameObject.GetComponent<CameraSwitch>();
             PlayerPositionSave = transform.position;
             PlayerVelocitySave = _rigidbody2d.velocity;
-            
-            _rigidbody2d.velocity = Vector2.zero;
-            stoppedMoving = false;
             _rigidbody2d.Sleep();
+            stoppedMoving = false;
+            
         }
     }
     private void OnTriggerStay2D(Collider2D other) {
