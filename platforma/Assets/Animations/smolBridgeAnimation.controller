@@ -46,7 +46,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ee13258dba87bdb45950367dd2fcf0b6, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2ea81837946322947aa6a9b3450b7cad, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: MakeTransition
@@ -73,7 +73,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: ee13258dba87bdb45950367dd2fcf0b6, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2ea81837946322947aa6a9b3450b7cad, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: MakeTransition
@@ -144,7 +144,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 7d2d5333567c0cb419e9d9232f4f4dc2, type: 2}
+  m_Motion: {fileID: 7400000, guid: 2380c9b1942b7e54b9173df85f82a6b4, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -193,7 +193,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 36ea80bf600c1f7448b2687c996353f1, type: 2}
+  m_Motion: {fileID: 7400000, guid: 0496c2156cc723c48bb75d8ae7a0ef4a, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -205,7 +205,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: longBridgeWithAnimation
+  m_Name: smolBridgeAnimation
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: MakeTransition
@@ -213,7 +213,7 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
