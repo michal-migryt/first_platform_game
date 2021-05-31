@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FollowPath : MonoBehaviour
+public class FollowPath : PlatformlikeObject
 {
     public PlatformPath Path;
     public float Speed = 1;
@@ -37,12 +37,5 @@ public class FollowPath : MonoBehaviour
         if (distanceSquared < MaxDistanceToGoal * MaxDistanceToGoal)
             _currentPoint.MoveNext();
     }
-    private void OnCollisionEnter2D(Collision2D other) {
-        if(other.gameObject.tag == "Player")
-        other.collider.transform.SetParent(transform);
-    }
-    private void OnCollisionExit2D(Collision2D other) {
-        if(other.gameObject.tag == "Player")
-        other.collider.transform.SetParent(null);
-    }
+    
 }
