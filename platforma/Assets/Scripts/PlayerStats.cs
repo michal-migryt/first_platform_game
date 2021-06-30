@@ -71,10 +71,14 @@ public class PlayerStats : MonoBehaviour
     public void Respawned()
     {
         needRespawn = false;
-        CurrentHalfHearts = MaxHearts*2;
+        MaxHeal();
     }
     public void Heal(int amountOfHalfHearts)
     {
         CurrentHalfHearts += amountOfHalfHearts;
+    }
+    public void MaxHeal()
+    {
+        CurrentHalfHearts = MaxHearts*2;
     }
 }

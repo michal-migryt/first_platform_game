@@ -57,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
         calculateRayCastOrigin();
         CheckInput();
         AnimatorSetter();
+        Debug.Log(_rigidbody2d.velocity.y);
     }
     private void FixedUpdate() {
         FreezeOnCameraChange();
@@ -85,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Flip()
     {
-        transform.localScale = new Vector3(-transform.localScale.x, 1, 1);
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
     }
 
     private bool canJump()
@@ -185,11 +186,7 @@ public class PlayerMovement : MonoBehaviour
         }*/
     }
     private void OnTriggerEnter2D(Collider2D other) {
-        if(other.gameObject.tag == "Coin")
-        {
-            _playerStats.AddCoin();
-            Destroy(other.gameObject);
-        }
+        
         if(other.gameObject.tag == "CameraChange")
         {
             _cameraswitch = other.gameObject.GetComponent<CameraSwitch>();
@@ -213,7 +210,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void AnimatorSetter()
     {
-        if(Mathf.Abs(_rigidbody2d.velocity.y) != 0.0)
+        if(Mathf.Abs(_rigidbody2d.velocity.y) > 0.01f)
             _animator.SetBool("IsJumping", true);
         else
             _animator.SetBool("IsJumping", false);
