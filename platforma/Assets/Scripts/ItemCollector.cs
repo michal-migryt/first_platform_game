@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ItemCollector : MonoBehaviour
 {
+    public AudioSource _audioSource;
     PlayerStats _playerStats;
     private void Start() {
         _playerStats = GetComponent<PlayerStats>();
@@ -14,6 +15,7 @@ public class ItemCollector : MonoBehaviour
         {
             _playerStats.AddCoin();
             Destroy(other.gameObject);
+            _audioSource.Play();
         }
         if(other.gameObject.tag == "Heart")
         {

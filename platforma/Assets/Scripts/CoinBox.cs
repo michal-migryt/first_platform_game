@@ -5,6 +5,7 @@ using UnityEngine;
 public class CoinBox : MonoBehaviour
 {
     public int AmountOfCoins;
+    public AudioSource CoinSound;
     private Animator _animator;
     private BoxCollider2D _boxcollider2d;
     private bool isPlayerDown;
@@ -49,6 +50,7 @@ public class CoinBox : MonoBehaviour
                 StartCoroutine(AnimationTime());
                 AmountOfCoins--;
                 _playerStats.AddCoin();
+                CoinSound.Play();
             }
         }
         

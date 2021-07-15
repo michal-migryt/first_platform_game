@@ -8,8 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed = 4f;
     public float jumpForce = 6f;
     private float direction;
-
     public LayerMask _layerMask;
+    public AudioSource[] _audioSources;
     private Rigidbody2D _rigidbody2d;
     private BoxCollider2D _boxcollider;
     private PlayerStats _playerStats;
@@ -57,7 +57,6 @@ public class PlayerMovement : MonoBehaviour
         calculateRayCastOrigin();
         CheckInput();
         AnimatorSetter();
-        Debug.Log(_rigidbody2d.velocity.y);
     }
     private void FixedUpdate() {
         FreezeOnCameraChange();
@@ -79,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
                 transform.position += new Vector3(direction, 0, 0) *Time.deltaTime * movementSpeed;
             if(Input.GetButtonDown("Jump") && canJump())
             {
+                _audioSources[0].Play();
                 _rigidbody2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             }
             
@@ -169,6 +169,7 @@ public class PlayerMovement : MonoBehaviour
                 _playerStats.TakeDamage(1);
                 _animator.SetBool("IsHurt", true);
                 hurtTime = 1f;
+                _audioSources[1].Play();
             }
         }
         /*if(other.gameObject.tag == "CoinBox")
